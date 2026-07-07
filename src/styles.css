@@ -473,3 +473,4 @@
 .wi .admin-table th,.wi .admin-table td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line);}
 .wi .admin-table th{background:var(--paper-soft);font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft);}
 .wi .admin-note{font-size:13px;color:var(--ink-soft);background:var(--paper-soft);padding:16px 18px;border-radius:12px;line-height:1.6;}
+#lovable-badge { display: none !important; }

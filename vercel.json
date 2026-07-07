@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/wedding/1/jasur-nilufar", "destination": "https://wedding-invitation-1-jasur-and-nilufar.lovable.app" },
+    { "source": "/wedding/2/xasan-dilfuza", "destination": "https://wedding-invitation-2-xasan-dilfuza.lovable.app" },
+    { "source": "/wedding/3/islom-sevinch", "destination": "https://islomsevinch.lovable.app" }
+  ]
+}

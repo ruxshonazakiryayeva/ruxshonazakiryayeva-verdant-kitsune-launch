@@ -339,6 +339,14 @@ const CATALOG: CatItem[] = [
     href: "https://islomsevinch.lovable.app",
     img: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e62f57dd-02c6-49f9-bcba-0b4b7a3a188a/id-preview-7697f9ac--fed3aca6-c3f3-44fd-b94e-02603c8218d6.lovable.app-1783065695862.png",
   },
+    {
+    cat: "wedding",
+    tagKey: "filter.wedding",
+    title: "Kamol & Sabina",
+    descKey: "cat.item6",
+    href: "https://wedding-kamol-sabina.lovable.app",
+    img: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/c29b4278-22aa-4f5e-821f-3f77eec6ebc5/id-preview-6221937e--8ee7e74f-5bd6-41fb-b6f7-cb1f4227fac9.lovable.app-1783482725163.png",
+  },
 ];
 
 function renderHtml(html: string) {

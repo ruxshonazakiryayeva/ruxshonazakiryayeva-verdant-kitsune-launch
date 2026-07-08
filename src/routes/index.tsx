@@ -97,7 +97,7 @@ const translations: Record<Lang, Record<string, string>> = {
       "Raqamli taklifnomalarni his-tuyg'u va uslub bilan yaratamiz — sizning muhim onlaringiz uchun.",
     "foot.links": "Havolalar",
     "foot.contact": "Aloqa",
-    "foot.city": "Farg'ona, O'zbekiston",
+    "foot.city": "Sirdaryo, O'zbekiston",
     "foot.rights": "Barcha huquqlar himoyalangan.",
     "foot.made": "Sevgi bilan yaratilgan",
   },
@@ -188,7 +188,7 @@ const translations: Record<Lang, Record<string, string>> = {
       "Создаём цифровые приглашения с душой и стилем — для ваших важных моментов.",
     "foot.links": "Ссылки",
     "foot.contact": "Контакты",
-    "foot.city": "Фергана, Узбекистан",
+    "foot.city": "Сырдарья, Узбекистан",
     "foot.rights": "Все права защищены.",
     "foot.made": "Сделано с любовью",
   },
@@ -278,7 +278,7 @@ const translations: Record<Lang, Record<string, string>> = {
       "We craft digital invitations with feeling and style — for your most important moments.",
     "foot.links": "Links",
     "foot.contact": "Contact",
-    "foot.city": "Fergana, Uzbekistan",
+    "foot.city": "Sirdaryo, Uzbekistan",
     "foot.rights": "All rights reserved.",
     "foot.made": "Made with love",
   },
@@ -1065,7 +1065,7 @@ function WebInvitePage() {
             <div>
               <h4>{t("foot.contact")}</h4>
               <ul>
-                <li>+998 91 107-19-92</li>
+                <li>+998 93 905-13-17</li>
                 <li>ruxshonazakiryayeva@gmail.com</li>
                 <li>{t("foot.city")}</li>
               </ul>

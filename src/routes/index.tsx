@@ -320,8 +320,8 @@ const CATALOG: CatItem[] = [
     tagKey: "filter.wedding",
     title: "Wedding Studio",
     descKey: "cat.item2",
-    href: "https://wedding-invitation-2-xasan-dilfuza.lovable.app",
-    img: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f8d77a6f-7c55-49a9-a0a0-ae442168473e/id-preview-a277f94d--88f0f2f3-9a7f-4fb0-a3b1-abdd2afa457d.lovable.app-1781542972893.png",
+    href: "https://wedding-invitation-2-sherzod-kumush.lovable.app/",
+    img: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/9c7df204-2d60-4555-abea-a245e4eb0c28",
   },
   {
     cat: "party",

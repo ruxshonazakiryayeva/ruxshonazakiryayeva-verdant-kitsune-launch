@@ -326,9 +326,9 @@ const CATALOG: CatItem[] = [
   {
     cat: "party",
     tagKey: "filter.party",
-    title: "Golden Bloom",
+    title: "Qizlar bazmi Durdona",
     descKey: "cat.item3",
-    href: "https://id-preview--ca7280d9-64a1-4064-8a62-849f0a9b54a0.lovable.app",
+    href: "https://qizlarbazmidurdona.lovable.app",
     img: "https://screenshot2.lovable.dev/2b9127bd-3369-48dc-b8dc-09116c74f8d0/id-preview-4e07369c--ca7280d9-64a1-4064-8a62-849f0a9b54a0.lovable.app-1781854788244.png",
   },
   {

@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
+import { supabase } from "@/lib/supabaseClient";
 
 export const Route = createFileRoute("/")({
   component: WebInvitePage,
@@ -285,9 +286,6 @@ const translations: Record<Lang, Record<string, string>> = {
 };
 
 const ADMIN_PASSWORD = "webinvite2026";
-const SUBS_KEY = "wi_submissions";
-const VISITS_TOTAL = "wi_visits_total";
-const VISITS_DAY_PREFIX = "wi_visits_";
 
 type Submission = {
   created_at: string;
@@ -395,23 +393,30 @@ function WebInvitePage() {
     document.documentElement.lang = lang;
   }, [lang]);
 
-  // Visit counter (localStorage)
+  // Visit counter (Supabase — shared across all devices)
   useEffect(() => {
-    if (sessionStorage.getItem("wi_counted")) {
-      setVisitsTotal(Number(localStorage.getItem(VISITS_TOTAL) || 0));
-      const today = new Date().toISOString().slice(0, 10);
-      setVisitsToday(Number(localStorage.getItem(VISITS_DAY_PREFIX + today) || 0));
-      return;
-    }
+    if (sessionStorage.getItem("wi_counted")) return;
     sessionStorage.setItem("wi_counted", "1");
-    const total = Number(localStorage.getItem(VISITS_TOTAL) || 0) + 1;
-    localStorage.setItem(VISITS_TOTAL, String(total));
-    const today = new Date().toISOString().slice(0, 10);
-    const day = Number(localStorage.getItem(VISITS_DAY_PREFIX + today) || 0) + 1;
-    localStorage.setItem(VISITS_DAY_PREFIX + today, String(day));
-    setVisitsTotal(total);
-    setVisitsToday(day);
+    supabase
+      .from("site_visits")
+      .insert({})
+      .then(({ error }) => {
+        if (error) console.error("[visits] insert error", error);
+      });
   }, []);
+
+  const fetchStats = async () => {
+    const today = new Date().toISOString().slice(0, 10);
+    const [{ count: total }, { count: day }] = await Promise.all([
+      supabase.from("site_visits").select("*", { count: "exact", head: true }),
+      supabase
+        .from("site_visits")
+        .select("*", { count: "exact", head: true })
+        .gte("created_at", `${today}T00:00:00Z`),
+    ]);
+    setVisitsTotal(total || 0);
+    setVisitsToday(day || 0);
+  };
 
   // Scroll reveal
   useEffect(() => {
@@ -459,39 +464,36 @@ function WebInvitePage() {
     }
   };
 
-  const loadSubs = () => {
-    try {
-      const raw = localStorage.getItem(SUBS_KEY);
-      setSubs(raw ? (JSON.parse(raw) as Submission[]) : []);
-    } catch {
+  const loadSubs = async () => {
+    const { data, error } = await supabase
+      .from("submissions")
+      .select("*")
+      .order("created_at", { ascending: true });
+    if (error) {
+      console.error("[submissions] load error", error);
       setSubs([]);
+      return;
     }
+    setSubs((data as Submission[]) || []);
   };
 
-  const submitOrder = (e: FormEvent<HTMLFormElement>) => {
+  const submitOrder = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
     if ((fd.get("bot-field") as string)?.length) return;
     setFormSending(true);
     setFormStatus(t("form.sending"));
-    const sub: Submission = {
-      created_at: new Date().toISOString(),
+    const sub = {
       name: (fd.get("name") as string) || "",
       phone: (fd.get("phone") as string) || "",
       event: (fd.get("event") as string) || "",
       message: (fd.get("message") as string) || "",
     };
-    try {
-      const raw = localStorage.getItem(SUBS_KEY);
-      const list: Submission[] = raw ? JSON.parse(raw) : [];
-      list.push(sub);
-      localStorage.setItem(SUBS_KEY, JSON.stringify(list));
-    } catch {}
-    setTimeout(() => {
-      setFormStatus(t("form.ok"));
-      setFormSending(false);
-      (e.target as HTMLFormElement).reset();
-    }, 400);
+    const { error } = await supabase.from("submissions").insert(sub);
+    if (error) console.error("[submissions] insert error", error);
+    setFormStatus(t("form.ok"));
+    setFormSending(false);
+    (e.target as HTMLFormElement).reset();
   };
 
   const tryLogin = () => {
@@ -499,6 +501,7 @@ function WebInvitePage() {
       setAdminOverlay(false);
       setAdminErr(false);
       loadSubs();
+      fetchStats();
       setAdminDash(true);
     } else {
       setAdminErr(true);

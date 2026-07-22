@@ -347,6 +347,14 @@ const CATALOG: CatItem[] = [
     href: "https://wedding-kamol-sabina-w32s.vercel.app/",
     img: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/c29b4278-22aa-4f5e-821f-3f77eec6ebc5/id-preview-6221937e--8ee7e74f-5bd6-41fb-b6f7-cb1f4227fac9.lovable.app-1783482725163.png",
   },
+    {
+    cat: "wedding",
+    tagKey: "filter.wedding",
+    title: "Firdavs & Yasmina",
+    descKey: "cat.item7",
+    href: "https://firdavs-yasmina.lovable.app",
+    img: "https://api.microlink.io/?url=https://firdavs-yasmina.lovable.app&screenshot=true&meta=false&embed=screenshot.url",
+  },
 ];
 
 function renderHtml(html: string) {

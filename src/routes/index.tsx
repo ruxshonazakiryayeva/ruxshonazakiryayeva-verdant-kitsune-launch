@@ -37,6 +37,8 @@ const translations: Record<Lang, Record<string, string>> = {
     "cat.item3": "Qizlar bazmi uchun gullar va sekin animatsiyalar bilan.",
     "cat.item5":
       "Ko'p tilli, musiqali va ijtimoiy tarmoqlarda ulashish imkoniyatiga ega taklifnoma.",
+    "cat.item6": "Nafis va zamonaviy uslub, sanoq taymeri va musiqa bilan.",
+    "cat.item7": "Yorqin ranglar va sokin animatsiyalar bilan bezatilgan taklifnoma.",
     "cat.more": "Barcha dizaynlarni so'rash",
     "filter.all": "Barchasi",
     "filter.wedding": "To'y",
@@ -58,13 +60,22 @@ const translations: Record<Lang, Record<string, string>> = {
       "Havola yoki QR-kod orqali mehmonlaringizga bir necha soniyada yuboring.",
     "price.eyebrow": "Narx",
     "price.title": "Shaffof va sodda narx",
-    "price.cardtitle": "1 ta raqamli taklifnoma",
-    "price.note": "+ 1 bepul Instagram-hikoya bonus sifatida",
-    "price.li1": "Individual dizayn",
-    "price.li2": "4 tilda matn (o'zbek, rus, ingliz, qoraqalpoq)",
-    "price.li3": "Xarita, sanoq va mehmonlar ro'yxati",
-    "price.li4": "24 soat ichida tayyor",
+    "price.standard.badge": "Standart",
+    "price.standard.title": "Katalogdagi shablon asosida",
+    "price.standard.note": "+ 1 bepul Instagram-hikoya bonus sifatida",
+    "price.standard.li1": "Katalogdagi tayyor dizaynlardan biri",
+    "price.standard.li2": "4 tilda matn (o'zbek, rus, ingliz, qoraqalpoq)",
+    "price.standard.li3": "Xarita, sanoq va mehmonlar ro'yxati",
+    "price.standard.li4": "24 soat ichida tayyor",
+    "price.premium.badge": "Premium · Individual",
+    "price.premium.title": "Sizga xos, noyob dizayn",
+    "price.premium.note": "Shablonlar yoqmasami? O'zingiz xohlagan uslubda, noldan yasab beramiz.",
+    "price.premium.li1": "100% individual, takrorlanmas dizayn",
+    "price.premium.li2": "Sizning g'oyangiz va uslubingiz asosida",
+    "price.premium.li3": "Xarita, sanoq, musiqa va mehmonlar ro'yxati",
+    "price.premium.li4": "Narx loyiha murakkabligiga qarab belgilanadi",
     "price.cta": "Buyurtma berish",
+    "price.cta.consult": "Bepul konsultatsiya",
     "faq.eyebrow": "Savollar",
     "faq.title": "Ko'p so'raladigan savollar",
     "faq.q1": "Taklifnoma qancha vaqtda tayyor bo'ladi?",
@@ -75,7 +86,7 @@ const translations: Record<Lang, Record<string, string>> = {
       "O'zbek (lotin va kirill), rus va ingliz tillari. Kerak bo'lsa qo'shimcha tillar ham qo'shiladi.",
     "faq.q3": "Taklifnomani qanday ulashaman?",
     "faq.a3":
-      "Sizga shaxsiy havola va QR-kod beriladi — ularni WhatsApp, Telegram yoki bosma taklifnomada ishlatishingiz mumkin.",
+      "Sizga shaxsiy havola va QR-kod beriladi — ularni Instagram, Telegram yoki bosma taklifnomada ishlatishingiz mumkin.",
     "faq.q4": "To'lov qanday amalga oshiriladi?",
     "faq.a4":
       "Dizayn tasdiqlangandan so'ng Click, Payme yoki naqd pul orqali to'lashingiz mumkin.",
@@ -96,6 +107,7 @@ const translations: Record<Lang, Record<string, string>> = {
     "form.ok": "Rahmat! Arizangiz qabul qilindi, tez orada bog'lanamiz.",
     "foot.desc":
       "Raqamli taklifnomalarni his-tuyg'u va uslub bilan yaratamiz — sizning muhim onlaringiz uchun.",
+    "foot.follow": "Bizni quyidagi ijtimoiy tarmoqlardan kuzatib boring:",
     "foot.links": "Havolalar",
     "foot.contact": "Aloqa",
     "foot.city": "Sirdaryo, O'zbekiston",
@@ -129,6 +141,8 @@ const translations: Record<Lang, Record<string, string>> = {
     "cat.item3": "Для девичника, с цветами и плавной анимацией.",
     "cat.item5":
       "Многоязычное приглашение с музыкой и возможностью поделиться в соцсетях.",
+    "cat.item6": "Изысканный современный стиль, таймер и музыка.",
+    "cat.item7": "Яркие цвета и плавные анимации.",
     "cat.more": "Запросить все дизайны",
     "filter.all": "Все",
     "filter.wedding": "Свадьба",
@@ -149,13 +163,22 @@ const translations: Record<Lang, Record<string, string>> = {
     "how.s3.text": "Отправьте гостям ссылку или QR-код за секунды.",
     "price.eyebrow": "Цена",
     "price.title": "Прозрачная и простая цена",
-    "price.cardtitle": "1 цифровое приглашение",
-    "price.note": "+ 1 бесплатная Instagram-история в подарок",
-    "price.li1": "Индивидуальный дизайн",
-    "price.li2": "Текст на 4 языках",
-    "price.li3": "Карта, таймер и список гостей",
-    "price.li4": "Готово за 24 часа",
+    "price.standard.badge": "Стандарт",
+    "price.standard.title": "На основе шаблона из каталога",
+    "price.standard.note": "+ 1 бесплатная Instagram-история в подарок",
+    "price.standard.li1": "Один из готовых дизайнов каталога",
+    "price.standard.li2": "Текст на 4 языках",
+    "price.standard.li3": "Карта, таймер и список гостей",
+    "price.standard.li4": "Готово за 24 часа",
+    "price.premium.badge": "Премиум · Индивидуально",
+    "price.premium.title": "Уникальный дизайн специально для вас",
+    "price.premium.note": "Не нравятся шаблоны? Создадим дизайн с нуля в вашем стиле.",
+    "price.premium.li1": "100% индивидуальный, неповторимый дизайн",
+    "price.premium.li2": "На основе вашей идеи и стиля",
+    "price.premium.li3": "Карта, таймер, музыка и список гостей",
+    "price.premium.li4": "Цена зависит от сложности проекта",
     "price.cta": "Заказать",
+    "price.cta.consult": "Бесплатная консультация",
     "faq.eyebrow": "Вопросы",
     "faq.title": "Часто задаваемые вопросы",
     "faq.q1": "Сколько времени занимает изготовление?",
@@ -166,7 +189,7 @@ const translations: Record<Lang, Record<string, string>> = {
       "Узбекский (латиница и кириллица), русский и английский. При необходимости добавим и другие.",
     "faq.q3": "Как поделиться приглашением?",
     "faq.a3":
-      "Вы получите личную ссылку и QR-код — используйте их в WhatsApp, Telegram или на печатном приглашении.",
+      "Вы получите личную ссылку и QR-код — используйте их в Instagram, Telegram или на печатном приглашении.",
     "faq.q4": "Как происходит оплата?",
     "faq.a4":
       "После утверждения дизайна можно оплатить через Click, Payme или наличными.",
@@ -187,6 +210,7 @@ const translations: Record<Lang, Record<string, string>> = {
     "form.ok": "Спасибо! Ваша заявка принята, скоро свяжемся.",
     "foot.desc":
       "Создаём цифровые приглашения с душой и стилем — для ваших важных моментов.",
+    "foot.follow": "Подписывайтесь на нас в соцсетях:",
     "foot.links": "Ссылки",
     "foot.contact": "Контакты",
     "foot.city": "Сырдарья, Узбекистан",
@@ -219,6 +243,8 @@ const translations: Record<Lang, Record<string, string>> = {
     "cat.item2": "Personalized with photos and music.",
     "cat.item3": "For a bachelorette party, with florals and smooth motion.",
     "cat.item5": "Multilingual invitation with music and social sharing.",
+    "cat.item6": "An elegant modern style with countdown and music.",
+    "cat.item7": "Bright colors with smooth, gentle animations.",
     "cat.more": "Request all designs",
     "filter.all": "All",
     "filter.wedding": "Wedding",
@@ -239,13 +265,22 @@ const translations: Record<Lang, Record<string, string>> = {
     "how.s3.text": "Send guests a link or QR code in seconds.",
     "price.eyebrow": "Pricing",
     "price.title": "Simple, transparent pricing",
-    "price.cardtitle": "1 digital invitation",
-    "price.note": "+ 1 free Instagram story included",
-    "price.li1": "Custom design",
-    "price.li2": "Text in 4 languages",
-    "price.li3": "Map, countdown and guest list",
-    "price.li4": "Ready within 24 hours",
+    "price.standard.badge": "Standard",
+    "price.standard.title": "Based on a catalog template",
+    "price.standard.note": "+ 1 free Instagram story included",
+    "price.standard.li1": "One of the ready-made catalog designs",
+    "price.standard.li2": "Text in 4 languages",
+    "price.standard.li3": "Map, countdown and guest list",
+    "price.standard.li4": "Ready within 24 hours",
+    "price.premium.badge": "Premium · Custom",
+    "price.premium.title": "A one-of-a-kind design, made for you",
+    "price.premium.note": "Don't love the templates? We'll design something entirely your own, from scratch.",
+    "price.premium.li1": "100% custom, one-of-a-kind design",
+    "price.premium.li2": "Built around your own idea and style",
+    "price.premium.li3": "Map, countdown, music and guest list",
+    "price.premium.li4": "Price depends on project complexity",
     "price.cta": "Order now",
+    "price.cta.consult": "Free consultation",
     "faq.eyebrow": "FAQ",
     "faq.title": "Frequently asked questions",
     "faq.q1": "How long does an invitation take?",
@@ -256,7 +291,7 @@ const translations: Record<Lang, Record<string, string>> = {
       "Uzbek (Latin and Cyrillic), Russian and English. Additional languages can be added on request.",
     "faq.q3": "How do I share the invitation?",
     "faq.a3":
-      "You'll get a personal link and QR code — use them on WhatsApp, Telegram, or a printed invitation.",
+      "You'll get a personal link and QR code — use them on Instagram, Telegram, or a printed invitation.",
     "faq.q4": "How does payment work?",
     "faq.a4":
       "Once the design is approved, you can pay via Click, Payme, or cash.",
@@ -277,6 +312,7 @@ const translations: Record<Lang, Record<string, string>> = {
     "form.ok": "Thank you! Your request has been received, we'll be in touch soon.",
     "foot.desc":
       "We craft digital invitations with feeling and style — for your most important moments.",
+    "foot.follow": "Follow us on social media:",
     "foot.links": "Links",
     "foot.contact": "Contact",
     "foot.city": "Sirdaryo, Uzbekistan",
@@ -420,7 +456,7 @@ function WebInvitePage() {
 
   // Scroll reveal
   useEffect(() => {
-    const els = rootRef.current?.querySelectorAll(".reveal");
+    const els = rootRef.current?.querySelectorAll(".reveal:not(.in)");
     if (!els) return;
     const io = new IntersectionObserver(
       (entries) => {
@@ -435,7 +471,7 @@ function WebInvitePage() {
     );
     els.forEach((el) => io.observe(el));
     return () => io.disconnect();
-  }, []);
+  }, [filter]);
 
   // Petals
   const petals = useMemo(() => {
@@ -803,21 +839,47 @@ function WebInvitePage() {
               </div>
               <h2>{t("price.title")}</h2>
             </div>
-            <div className="price-card reveal">
-              <h3>{t("price.cardtitle")}</h3>
-              <div className="price-amount">
-                150 000 <span style={{ fontSize: 16 }}>so'm</span>
+            <div className="price-grid">
+              <div className="price-card reveal">
+                <span className="price-badge">{t("price.standard.badge")}</span>
+                <h3>{t("price.standard.title")}</h3>
+                <div className="price-amount">
+                  100 000 <span style={{ fontSize: 16 }}>so'm</span>
+                </div>
+                <p className="price-note">{t("price.standard.note")}</p>
+                <ul>
+                  <li>{t("price.standard.li1")}</li>
+                  <li>{t("price.standard.li2")}</li>
+                  <li>{t("price.standard.li3")}</li>
+                  <li>{t("price.standard.li4")}</li>
+                </ul>
+                <a href="#contact" className="btn btn-seal submit-btn">
+                  {t("price.cta")}
+                </a>
               </div>
-              <p className="price-note">{t("price.note")}</p>
-              <ul>
-                <li>{t("price.li1")}</li>
-                <li>{t("price.li2")}</li>
-                <li>{t("price.li3")}</li>
-                <li>{t("price.li4")}</li>
-              </ul>
-              <a href="#contact" className="btn btn-seal submit-btn">
-                {t("price.cta")}
-              </a>
+              <div className="price-card price-card-premium reveal">
+                <span className="price-badge price-badge-premium">
+                  {t("price.premium.badge")}
+                </span>
+                <h3>{t("price.premium.title")}</h3>
+                <div className="price-amount price-amount-custom">
+                  {lang === "uz"
+                    ? "So'rov asosida"
+                    : lang === "ru"
+                      ? "По запросу"
+                      : "On request"}
+                </div>
+                <p className="price-note">{t("price.premium.note")}</p>
+                <ul>
+                  <li>{t("price.premium.li1")}</li>
+                  <li>{t("price.premium.li2")}</li>
+                  <li>{t("price.premium.li3")}</li>
+                  <li>{t("price.premium.li4")}</li>
+                </ul>
+                <a href="#contact" className="btn btn-ghost submit-btn">
+                  {t("price.cta.consult")}
+                </a>
+              </div>
             </div>
           </div>
         </section>
@@ -899,7 +961,7 @@ function WebInvitePage() {
                 </a>
                 <a
                   className="channel"
-                  href="https://t.me/webinvite_uz"
+                  href="https://t.me/erkaqizgina1317"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -915,7 +977,7 @@ function WebInvitePage() {
                   </span>
                   <span className="ch-text">
                     <b>Telegram</b>
-                    <span>@webinvite_uz</span>
+                    <span>@erkaqizgina1317</span>
                   </span>
                 </a>
                 <a className="channel" href="mailto:ruxshonazakiryayeva@gmail.com">
@@ -1000,6 +1062,7 @@ function WebInvitePage() {
                 WebInvite<span>.</span>
               </a>
               <p className="foot-desc">{t("foot.desc")}</p>
+              <p className="foot-follow">{t("foot.follow")}</p>
               <div className="share-row">
                 <a
                   href="https://t.me/webinvite_uz"

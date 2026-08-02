@@ -354,7 +354,7 @@ const CATALOG: CatItem[] = [
     tagKey: "filter.wedding",
     title: "Wedding Studio",
     descKey: "cat.item2",
-    href: "https://wedding-invitation-2-sherzod-kumush.lovable.app/",
+    href: "https://wedding-invitation-2-sherzod-kumush.vercel.app/",
     img: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/9c7df204-2d60-4555-abea-a245e4eb0c28",
   },
   {

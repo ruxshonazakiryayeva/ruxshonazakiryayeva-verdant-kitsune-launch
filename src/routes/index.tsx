@@ -370,7 +370,7 @@ const CATALOG: CatItem[] = [
     tagKey: "filter.wedding",
     title: "Islom & Sevinch",
     descKey: "cat.item5",
-    href: "https://islomsevinch.lovable.app",
+    href: "https://wedding-invitation-3-islom-sevinch.vercel.app/",
     img: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e62f57dd-02c6-49f9-bcba-0b4b7a3a188a/id-preview-7697f9ac--fed3aca6-c3f3-44fd-b94e-02603c8218d6.lovable.app-1783065695862.png",
   },
     {

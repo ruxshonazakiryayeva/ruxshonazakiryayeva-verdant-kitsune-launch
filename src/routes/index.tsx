@@ -346,7 +346,7 @@ const CATALOG: CatItem[] = [
     tagKey: "filter.wedding",
     title: "Golden Vows",
     descKey: "cat.item1",
-    href: "https://wedding-invitation-1-jasur-and-nilu.vercel.app/",
+    href: "https://wedding-invitation-1-jasur-nilufar.vercel.app/",
     img: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/8d8f0a38-d2b5-4e0d-8af2-06948233b80f",
   },
   {

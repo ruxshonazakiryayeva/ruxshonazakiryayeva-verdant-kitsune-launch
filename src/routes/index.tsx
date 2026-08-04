@@ -358,13 +358,13 @@ const CATALOG: CatItem[] = [
     img: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/9c7df204-2d60-4555-abea-a245e4eb0c28",
   },
   {
-  cat: "party",
-  tagKey: "filter.party",
-  title: "Qizlar bazmi Durdona",
-  descKey: "cat.item3",
-  href: "https://bacheloretteparty-durdona.vercel.app/",
-  img: "https://storage.googleapis.com/gpt-engineer-file-uploads/CgkjvrXqwyWhgLmMwwOhV0pCido2/social-images/social-1784697237501-webinvitesaytyuzi.webp",
-},
+    cat: "party",
+    tagKey: "filter.party",
+    title: "Qizlar bazmi Durdona",
+    descKey: "cat.item3",
+    href: "https://bacheloretteparty-durdona.vercel.app/",
+    img: "https://api.microlink.io/?url=https://bacheloretteparty-durdona.vercel.app/&screenshot=true&meta=false&embed=screenshot.url",
+  },
   {
     cat: "party",
     tagKey: "filter.party",
@@ -381,7 +381,7 @@ const CATALOG: CatItem[] = [
     href: "https://wedding-invitation-3-islom-sevinch.vercel.app/",
     img: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e62f57dd-02c6-49f9-bcba-0b4b7a3a188a/id-preview-7697f9ac--fed3aca6-c3f3-44fd-b94e-02603c8218d6.lovable.app-1783065695862.png",
   },
-    {
+  {
     cat: "wedding",
     tagKey: "filter.wedding",
     title: "Kamol & Sabina",
@@ -389,7 +389,7 @@ const CATALOG: CatItem[] = [
     href: "https://wedding-kamol-sabina-w32s.vercel.app/",
     img: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/c29b4278-22aa-4f5e-821f-3f77eec6ebc5/id-preview-6221937e--8ee7e74f-5bd6-41fb-b6f7-cb1f4227fac9.lovable.app-1783482725163.png",
   },
-    {
+  {
     cat: "wedding",
     tagKey: "filter.wedding",
     title: "Firdavs & Yasmina",

@@ -346,7 +346,7 @@ const CATALOG: CatItem[] = [
     tagKey: "filter.wedding",
     title: "Golden Vows",
     descKey: "cat.item1",
-    href: "https://wedding-invitation-1-jasur-nilufar.vercel.app/",
+    href: "https://bacheloretteparty-durdona-f9q4.vercel.app",
     img: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/8d8f0a38-d2b5-4e0d-8af2-06948233b80f",
   },
   {
@@ -362,7 +362,7 @@ const CATALOG: CatItem[] = [
     tagKey: "filter.party",
     title: "Qizlar bazmi Durdona",
     descKey: "cat.item3",
-    href: "https://qizlarbazmidurdona.lovable.app",
+    href: "https://bacheloretteparty-durdona-f9q4-qpiku5jb0.vercel.app/",
     img: "https://screenshot2.lovable.dev/2b9127bd-3369-48dc-b8dc-09116c74f8d0/id-preview-4e07369c--ca7280d9-64a1-4064-8a62-849f0a9b54a0.lovable.app-1781854788244.png",
   },
   {

@@ -358,6 +358,14 @@ const CATALOG: CatItem[] = [
     img: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/9c7df204-2d60-4555-abea-a245e4eb0c28",
   },
   {
+  cat: "party",
+  tagKey: "filter.party",
+  title: "Qizlar bazmi Durdona",
+  descKey: "cat.item3",
+  href: "https://bacheloretteparty-durdona.vercel.app/",
+  img: "https://storage.googleapis.com/gpt-engineer-file-uploads/CgkjvrXqwyWhgLmMwwOhV0pCido2/social-images/social-1784697237501-webinvitesaytyuzi.webp",
+},
+  {
     cat: "party",
     tagKey: "filter.party",
     title: "Qizlar bazmi Durdona",

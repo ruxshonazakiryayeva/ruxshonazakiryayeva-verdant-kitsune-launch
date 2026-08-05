@@ -34,7 +34,7 @@ const translations: Record<Lang, Record<string, string>> = {
     "cat.title": "Har bir tadbir uchun dizayn",
     "cat.item1": "Bej-oltin uslub, sanoq taymeri, xarita va musiqa bilan.",
     "cat.item2": "Shaxsiy foto va musiqa bilan moslashtirilgan taklifnoma.",
-    "cat.item3": "Qizlar bazmi uchun gullar va sekin animatsiyalar bilan.",
+    "cat.item4": "Qizlar bazmi uchun gullar va sekin animatsiyalar bilan.",
     "cat.item5":
       "Ko'p tilli, musiqali va ijtimoiy tarmoqlarda ulashish imkoniyatiga ega taklifnoma.",
     "cat.item6": "Nafis va zamonaviy uslub, sanoq taymeri va musiqa bilan.",
@@ -138,7 +138,7 @@ const translations: Record<Lang, Record<string, string>> = {
     "cat.title": "Дизайн для каждого события",
     "cat.item1": "Бежево-золотой стиль, таймер, карта и музыка.",
     "cat.item2": "Приглашение с личными фото и музыкой.",
-    "cat.item3": "Для девичника, с цветами и плавной анимацией.",
+    "cat.item4": "Для девичника, с цветами и плавной анимацией.",
     "cat.item5":
       "Многоязычное приглашение с музыкой и возможностью поделиться в соцсетях.",
     "cat.item6": "Изысканный современный стиль, таймер и музыка.",
@@ -241,7 +241,7 @@ const translations: Record<Lang, Record<string, string>> = {
     "cat.title": "A design for every occasion",
     "cat.item1": "Beige-gold style with countdown, map and music.",
     "cat.item2": "Personalized with photos and music.",
-    "cat.item3": "For a bachelorette party, with florals and smooth motion.",
+    "cat.item4": "For a bachelorette party, with florals and smooth motion.",
     "cat.item5": "Multilingual invitation with music and social sharing.",
     "cat.item6": "An elegant modern style with countdown and music.",
     "cat.item7": "Bright colors with smooth, gentle animations.",

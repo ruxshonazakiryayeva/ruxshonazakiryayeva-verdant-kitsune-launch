@@ -354,7 +354,7 @@ const CATALOG: CatItem[] = [
     tagKey: "filter.wedding",
     title: "Golden Vows",
     descKey: "cat.item2",
-    href: "https://bacheloretteparty-durdona-f9q4.vercel.app",
+    href: "",
     img: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/8d8f0a38-d2b5-4e0d-8af2-06948233b80f",
   },
   {

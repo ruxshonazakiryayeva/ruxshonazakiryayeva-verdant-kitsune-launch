@@ -394,7 +394,7 @@ const CATALOG: CatItem[] = [
     tagKey: "filter.wedding",
     title: "Firdavs & Yasmina",
     descKey: "cat.item7",
-    href: "https://firdavs-yasmina.lovable.app",
+    href: "https://wedding-invitation-5-firdavs-yasmina.vercel.app/",
     img: "https://api.microlink.io/?url=https://firdavs-yasmina.lovable.app&screenshot=true&meta=false&embed=screenshot.url",
   },
 ];

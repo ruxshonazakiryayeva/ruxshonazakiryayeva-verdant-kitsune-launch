@@ -400,6 +400,14 @@ const CATALOG: CatItem[] = [
     href: "https://wedding-invitation-5-firdavs-yasmina.vercel.app/",
     img: "https://api.microlink.io/?url=https://firdavs-yasmina.lovable.app&screenshot=true&meta=false&embed=screenshot.url",
   },
+   {
+    cat: "other",
+    tagKey: "filter.other",
+    title: "Oisha",
+    descKey: "cat.item7",
+    href: "https://birthday-oisha-bash.vercel.app/",
+    img: "https://api.microlink.io/?url=https://birthday-oisha-bash.vercel.app/&screenshot=true&meta=false&embed=screenshot.url",
+  },
 ];
 
 function renderHtml(html: string) {

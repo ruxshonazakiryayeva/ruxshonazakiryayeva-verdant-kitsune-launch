@@ -335,12 +335,13 @@ type Submission = {
 };
 
 type CatItem = {
-  cat: "wedding" | "party" | "other";
+  cat: "wedding" | "party" | "birthday" | "other";
   tagKey: string;
   title: string;
   descKey: string;
   href: string;
   img: string;
+  editHref?: string;
 };
 
 const CATALOG: CatItem[] = [

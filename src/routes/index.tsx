@@ -747,7 +747,7 @@ function WebInvitePage() {
               <h2>{t("cat.title")}</h2>
             </div>
             <div className="filters reveal">
-              {(["all", "wedding", "party", "other"] as const).map((f) => (
+              {(["all", "wedding", "party", "birthday", "other"] as const).map((f) => (
                 <button
                   key={f}
                   className={"filter-btn" + (filter === f ? " active" : "")}

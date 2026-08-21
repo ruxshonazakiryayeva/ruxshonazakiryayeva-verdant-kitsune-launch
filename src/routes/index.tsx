@@ -782,7 +782,7 @@ function WebInvitePage() {
                     <h3>{c.title}</h3>
                     <p>{t(c.descKey)}</p>
                     <div className="cat-links" style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
-                      
+                      <a
                         className="cat-link"
                         href={c.href}
                         target="_blank"
@@ -803,7 +803,7 @@ function WebInvitePage() {
                         </svg>
                       </a>
                       {c.editHref && (
-                        
+                        <a
                           className="cat-link"
                           href={c.editHref}
                           target="_blank"

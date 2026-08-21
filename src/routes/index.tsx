@@ -405,8 +405,8 @@ const CATALOG: CatItem[] = [
     img: "https://api.microlink.io/?url=https://firdavs-yasmina.lovable.app&screenshot=true&meta=false&embed=screenshot.url",
   },
    {
-    cat: "other",
-    tagKey: "filter.other",
+    cat: "birthday",
+    tagKey: "filter.birthday",
     title: "Oisha",
     descKey: "cat.item7",
     href: "https://birthday-oisha-bash.vercel.app/",

@@ -419,7 +419,7 @@ function WebInvitePage() {
   const [lang, setLang] = useState<Lang>("uz");
   const [theme, setTheme] = useState<Theme>("light");
   const [envelopeOpen, setEnvelopeOpen] = useState(false);
-  const [filter, setFilter] = useState<"all" | "wedding" | "party" | "other">(
+  const [filter, setFilter] = useState<"all" | "wedding" | "party" | "birthday" | "other">(
     "all",
   );
   const [openFaq, setOpenFaq] = useState<number | null>(0);

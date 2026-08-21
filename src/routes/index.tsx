@@ -411,6 +411,7 @@ const CATALOG: CatItem[] = [
     descKey: "cat.item7",
     href: "https://birthday-oisha-bash.vercel.app/",
     img: "https://api.microlink.io/?url=https://birthday-oisha-bash.vercel.app/&screenshot=true&meta=false&embed=screenshot.url",
+    editHref: "https://birthday-oisha-bash.vercel.app/edit",
   },
 ];
 
@@ -780,26 +781,50 @@ function WebInvitePage() {
                   <div className="cat-body">
                     <h3>{c.title}</h3>
                     <p>{t(c.descKey)}</p>
-                    <a
-                      className="cat-link"
-                      href={c.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {lang === "uz"
-                        ? "Ko'rish"
-                        : lang === "ru"
-                          ? "Смотреть"
-                          : "View"}{" "}
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth={2}
+                    <div className="cat-links" style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+                      
+                        className="cat-link"
+                        href={c.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
                       >
-                        <path d="M7 17L17 7M7 7h10v10" />
-                      </svg>
-                    </a>
+                        {lang === "uz"
+                          ? "Ko'rish"
+                          : lang === "ru"
+                            ? "Смотреть"
+                            : "View"}{" "}
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                        >
+                          <path d="M7 17L17 7M7 7h10v10" />
+                        </svg>
+                      </a>
+                      {c.editHref && (
+                        
+                          className="cat-link"
+                          href={c.editHref}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {lang === "uz"
+                            ? "Tahrirlash"
+                            : lang === "ru"
+                              ? "Редактировать"
+                              : "Edit"}{" "}
+                          <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                          >
+                            <path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z" />
+                          </svg>
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </div>
               ))}

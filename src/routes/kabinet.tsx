@@ -23,6 +23,7 @@ const STORAGE_KEY = "webinvite_login_code";
 type Invitation = {
   id: string;
   slug: string;
+  template_id: string;
   groom_name: string | null;
   bride_name: string | null;
   child_name: string | null;
@@ -90,7 +91,7 @@ function LoginScreen({ onConfirmed }: { onConfirmed: (code: string) => void }) {
 
   return (
     <div className="mx-auto flex max-w-md flex-col items-center px-4 py-24 text-center">
-      <h1 className="font-display text-3xl text-foreground">Mening kabinetim</h1>
+      <h1 className="text-3xl text-foreground">Mening kabinetim</h1>
       <p className="mt-3 text-muted-foreground">
         Kabinetga kirish uchun Telegram botimiz orqali tasdiqlang.
       </p>
@@ -166,15 +167,15 @@ function PaymentModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/95 px-4 backdrop-blur-sm" onClick={onClose}>
-      <div className="glass w-full max-w-sm rounded-3xl p-6 text-center" onClick={(e) => e.stopPropagation()}>
-        <h2 className="font-display text-2xl text-foreground">Faollashtirish</h2>
+      <div className="border border-border bg-card shadow-sm w-full max-w-sm rounded-3xl p-6 text-center" onClick={(e) => e.stopPropagation()}>
+        <h2 className="text-2xl text-foreground">Faollashtirish</h2>
         <p className="mt-2 text-sm text-muted-foreground">
           Kartaga to'lovni amalga oshiring va chek rasmini yuklang:
         </p>
 
         <div className="mt-5 rounded-2xl bg-secondary/60 p-4">
           <p className="text-xs uppercase tracking-wide text-muted-foreground">Summa</p>
-          <p className="font-display text-2xl text-foreground">{amount.toLocaleString("uz-UZ")} so'm</p>
+          <p className="text-2xl text-foreground">{amount.toLocaleString("uz-UZ")} so'm</p>
 
           <button
             type="button"
@@ -208,7 +209,7 @@ function PaymentModal({
           </p>
         </div>
 
-        <label className="btn-magic mt-4 flex w-full cursor-pointer items-center justify-center">
+        <label className="rounded-2xl bg-primary px-4 py-2.5 font-bold text-primary-foreground hover:opacity-90 transition mt-4 flex w-full cursor-pointer items-center justify-center">
           {uploading ? "Yuklanmoqda..." : "Chek rasmini yuklash"}
           <input
             type="file"
@@ -279,10 +280,10 @@ function CreateModal({ profile, onClose, onCreated }: { profile: Profile; onClos
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/95 px-4 backdrop-blur-sm" onClick={onClose}>
-      <div className="glass w-full max-w-md rounded-3xl p-6" onClick={(e) => e.stopPropagation()}>
+      <div className="border border-border bg-card shadow-sm w-full max-w-md rounded-3xl p-6" onClick={(e) => e.stopPropagation()}>
         {step === "pick" && (
           <>
-            <h2 className="font-display text-center text-2xl text-foreground">Shablon tanlang</h2>
+            <h2 className="text-center text-2xl text-foreground">Shablon tanlang</h2>
             <button
               type="button"
               onClick={() => setStep("form")}
@@ -302,7 +303,7 @@ function CreateModal({ profile, onClose, onCreated }: { profile: Profile; onClos
 
         {step === "form" && (
           <>
-            <h2 className="font-display text-center text-2xl text-foreground">Oisha — ma'lumotlar</h2>
+            <h2 className="text-center text-2xl text-foreground">Oisha — ma'lumotlar</h2>
             <div className="mt-4 space-y-3 text-left">
               <div>
                 <label className="text-xs font-bold uppercase text-muted-foreground">Bola ismi *</label>
@@ -351,7 +352,7 @@ function CreateModal({ profile, onClose, onCreated }: { profile: Profile; onClos
                 />
               </div>
             </div>
-            <button type="button" onClick={submit} disabled={saving} className="btn-magic mt-5 w-full">
+            <button type="button" onClick={submit} disabled={saving} className="rounded-2xl bg-primary px-4 py-2.5 font-bold text-primary-foreground hover:opacity-90 transition mt-5 w-full">
               {saving ? "Yaratilmoqda..." : "Taklifnoma yaratish"}
             </button>
             <button type="button" onClick={() => setStep("pick")} className="mt-2 w-full text-center text-sm text-muted-foreground underline">
@@ -362,12 +363,12 @@ function CreateModal({ profile, onClose, onCreated }: { profile: Profile; onClos
 
         {step === "done" && resultUrl && (
           <>
-            <h2 className="font-display text-center text-2xl text-foreground">🎉 Tayyor!</h2>
+            <h2 className="text-center text-2xl text-foreground">🎉 Tayyor!</h2>
             <p className="mt-2 text-center text-sm text-muted-foreground">Taklifnomangiz yaratildi:</p>
             <a href={resultUrl} target="_blank" rel="noopener noreferrer" className="mt-3 block break-all rounded-xl bg-secondary/60 p-3 text-center text-sm text-primary underline">
               {resultUrl}
             </a>
-            <button type="button" onClick={onClose} className="btn-magic mt-5 w-full">
+            <button type="button" onClick={onClose} className="rounded-2xl bg-primary px-4 py-2.5 font-bold text-primary-foreground hover:opacity-90 transition mt-5 w-full">
               Kabinetga qaytish
             </button>
           </>
@@ -377,9 +378,16 @@ function CreateModal({ profile, onClose, onCreated }: { profile: Profile; onClos
   );
 }
 
+const OISHA_SITE_URL = "https://oisha-bash.vercel.app";
+
+function invitationLink(inv: Invitation) {
+  if (inv.template_id === "oisha-birthday") return `${OISHA_SITE_URL}/invite/${inv.slug}`;
+  return `${window.location.origin}/i/${inv.slug}`;
+}
+
 function InvitationCard({ inv, onActivateClick }: { inv: Invitation; onActivateClick: () => void }) {
   const left = daysLeft(inv.event_date);
-  const link = `${window.location.origin}/i/${inv.slug}`;
+  const link = invitationLink(inv);
 
   const copyLink = () => {
     navigator.clipboard.writeText(link);
@@ -396,9 +404,9 @@ function InvitationCard({ inv, onActivateClick }: { inv: Invitation; onActivateC
           : { text: "Sinov", cls: "bg-secondary text-muted-foreground" };
 
   return (
-    <div className="glass rounded-3xl p-5">
+    <div className="border border-border bg-card shadow-sm rounded-3xl p-5">
       <div className="flex items-center justify-between">
-        <h3 className="font-display text-xl text-foreground">{invitationTitle(inv)}</h3>
+        <h3 className="text-xl text-foreground">{invitationTitle(inv)}</h3>
         <span className={`rounded-full px-2.5 py-1 text-xs font-bold ${statusLabel.cls}`}>
           {statusLabel.text}
         </span>
@@ -455,7 +463,7 @@ function InvitationCard({ inv, onActivateClick }: { inv: Invitation; onActivateC
       </div>
 
       <div className="mt-3 grid grid-cols-2 gap-2">
-        <a href={`/i/${inv.slug}`} className="flex items-center justify-center gap-1 rounded-xl border border-border py-2 text-sm">
+        <a href={link} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1 rounded-xl border border-border py-2 text-sm">
           <Eye className="h-4 w-4" /> Ko'rish
         </a>
         <button type="button" className="flex items-center justify-center gap-1 rounded-xl border border-border py-2 text-sm">
@@ -464,7 +472,7 @@ function InvitationCard({ inv, onActivateClick }: { inv: Invitation; onActivateC
       </div>
 
       {inv.status === "trial" && (
-        <button type="button" className="btn-magic mt-3 w-full" onClick={onActivateClick}>
+        <button type="button" className="rounded-2xl bg-primary px-4 py-2.5 font-bold text-primary-foreground hover:opacity-90 transition mt-3 w-full" onClick={onActivateClick}>
           Faollashtirish
         </button>
       )}
@@ -474,7 +482,7 @@ function InvitationCard({ inv, onActivateClick }: { inv: Invitation; onActivateC
         </p>
       )}
       {inv.status === "rejected" && (
-        <button type="button" className="btn-magic mt-3 w-full" onClick={onActivateClick}>
+        <button type="button" className="rounded-2xl bg-primary px-4 py-2.5 font-bold text-primary-foreground hover:opacity-90 transition mt-3 w-full" onClick={onActivateClick}>
           Qayta yuborish
         </button>
       )}
@@ -495,7 +503,7 @@ function Dashboard({
 }) {
   return (
     <div className="mx-auto max-w-2xl px-4 py-16">
-      <h1 className="font-display text-center text-4xl text-foreground">
+      <h1 className="text-center text-4xl text-foreground">
         Mening Taklifnomalarim
       </h1>
       {profile.first_name && (
@@ -506,7 +514,7 @@ function Dashboard({
         <button
           type="button"
           onClick={onCreateClick}
-          className="glass flex min-h-[200px] flex-col items-center justify-center gap-2 rounded-3xl border-2 border-dashed border-border text-muted-foreground"
+          className="border border-border bg-card shadow-sm flex min-h-[200px] flex-col items-center justify-center gap-2 rounded-3xl border-2 border-dashed border-border text-muted-foreground"
         >
           <Plus className="h-8 w-8" />
           Yangi yaratish

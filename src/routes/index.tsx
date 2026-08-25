@@ -643,6 +643,12 @@ function WebInvitePage() {
                 <path d="M9 18V6l10-2v12M9 18a3 3 0 11-6 0 3 3 0 016 0zm10-2a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
             </button>
+            <a href="/kabinet" className="icon-btn" title="Mening kabinetim">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+            </a>
             <a href="#contact" className="btn btn-seal nav-cta">
               {t("nav.cta")}
             </a>
@@ -1196,6 +1202,9 @@ function WebInvitePage() {
                 </li>
                 <li>
                   <a href="#contact">{t("nav.contact")}</a>
+                </li>
+                <li>
+                  <a href="/kabinet">Mening kabinetim</a>
                 </li>
               </ul>
             </div>

@@ -234,6 +234,149 @@ function PaymentModal({
   );
 }
 
+function CreateModal({ profile, onClose, onCreated }: { profile: Profile; onClose: () => void; onCreated: () => void }) {
+  const [step, setStep] = useState<"pick" | "form" | "done">("pick");
+  const [saving, setSaving] = useState(false);
+  const [resultUrl, setResultUrl] = useState<string | null>(null);
+  const [form, setForm] = useState({
+    childName: "",
+    age: "",
+    eventDate: "",
+    locationText: "",
+    mapUrl: "",
+  });
+
+  const submit = async () => {
+    if (!form.childName || !form.age || !form.eventDate || !form.locationText) {
+      toast.error("Barcha majburiy maydonlarni to'ldiring");
+      return;
+    }
+    const code = localStorage.getItem(STORAGE_KEY);
+    if (!code) {
+      toast.error("Sessiya topilmadi, qayta kiring");
+      return;
+    }
+    setSaving(true);
+    try {
+      const res = await callFn<{ ok: boolean; url: string }>("create-oisha-invitation", {
+        code,
+        childName: form.childName,
+        age: Number(form.age),
+        eventDate: form.eventDate,
+        locationText: form.locationText,
+        mapUrl: form.mapUrl || undefined,
+      });
+      setResultUrl(res.url);
+      setStep("done");
+      onCreated();
+    } catch (e) {
+      console.error(e);
+      toast.error("Xatolik yuz berdi, qayta urinib ko'ring");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/95 px-4 backdrop-blur-sm" onClick={onClose}>
+      <div className="glass w-full max-w-md rounded-3xl p-6" onClick={(e) => e.stopPropagation()}>
+        {step === "pick" && (
+          <>
+            <h2 className="font-display text-center text-2xl text-foreground">Shablon tanlang</h2>
+            <button
+              type="button"
+              onClick={() => setStep("form")}
+              className="mt-5 flex w-full items-center gap-3 rounded-2xl border border-border p-4 text-left"
+            >
+              <span className="text-3xl">🎂</span>
+              <span>
+                <span className="block font-bold text-foreground">Oisha — tug'ilgan kun</span>
+                <span className="block text-xs text-muted-foreground">20 000 so'm</span>
+              </span>
+            </button>
+            <p className="mt-3 text-center text-xs text-muted-foreground">
+              Boshqa shablonlar tez orada qo'shiladi
+            </p>
+          </>
+        )}
+
+        {step === "form" && (
+          <>
+            <h2 className="font-display text-center text-2xl text-foreground">Oisha — ma'lumotlar</h2>
+            <div className="mt-4 space-y-3 text-left">
+              <div>
+                <label className="text-xs font-bold uppercase text-muted-foreground">Bola ismi *</label>
+                <input
+                  className="mt-1 w-full rounded-xl border border-border bg-background/60 px-3 py-2 text-sm outline-none focus:border-primary"
+                  value={form.childName}
+                  onChange={(e) => setForm({ ...form, childName: e.target.value })}
+                  placeholder="Oisha"
+                />
+              </div>
+              <div>
+                <label className="text-xs font-bold uppercase text-muted-foreground">Yoshi *</label>
+                <input
+                  type="number"
+                  className="mt-1 w-full rounded-xl border border-border bg-background/60 px-3 py-2 text-sm outline-none focus:border-primary"
+                  value={form.age}
+                  onChange={(e) => setForm({ ...form, age: e.target.value })}
+                  placeholder="4"
+                />
+              </div>
+              <div>
+                <label className="text-xs font-bold uppercase text-muted-foreground">Sana va vaqt *</label>
+                <input
+                  type="datetime-local"
+                  className="mt-1 w-full rounded-xl border border-border bg-background/60 px-3 py-2 text-sm outline-none focus:border-primary"
+                  value={form.eventDate}
+                  onChange={(e) => setForm({ ...form, eventDate: e.target.value })}
+                />
+              </div>
+              <div>
+                <label className="text-xs font-bold uppercase text-muted-foreground">Manzil *</label>
+                <input
+                  className="mt-1 w-full rounded-xl border border-border bg-background/60 px-3 py-2 text-sm outline-none focus:border-primary"
+                  value={form.locationText}
+                  onChange={(e) => setForm({ ...form, locationText: e.target.value })}
+                  placeholder="Toshkent, ... to'yxonasi"
+                />
+              </div>
+              <div>
+                <label className="text-xs font-bold uppercase text-muted-foreground">Xarita havolasi (ixtiyoriy)</label>
+                <input
+                  className="mt-1 w-full rounded-xl border border-border bg-background/60 px-3 py-2 text-sm outline-none focus:border-primary"
+                  value={form.mapUrl}
+                  onChange={(e) => setForm({ ...form, mapUrl: e.target.value })}
+                  placeholder="https://maps.google.com/..."
+                />
+              </div>
+            </div>
+            <button type="button" onClick={submit} disabled={saving} className="btn-magic mt-5 w-full">
+              {saving ? "Yaratilmoqda..." : "Taklifnoma yaratish"}
+            </button>
+            <button type="button" onClick={() => setStep("pick")} className="mt-2 w-full text-center text-sm text-muted-foreground underline">
+              Orqaga
+            </button>
+          </>
+        )}
+
+        {step === "done" && resultUrl && (
+          <>
+            <h2 className="font-display text-center text-2xl text-foreground">🎉 Tayyor!</h2>
+            <p className="mt-2 text-center text-sm text-muted-foreground">Taklifnomangiz yaratildi:</p>
+            <a href={resultUrl} target="_blank" rel="noopener noreferrer" className="mt-3 block break-all rounded-xl bg-secondary/60 p-3 text-center text-sm text-primary underline">
+              {resultUrl}
+            </a>
+            <button type="button" onClick={onClose} className="btn-magic mt-5 w-full">
+              Kabinetga qaytish
+            </button>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function InvitationCard({ inv, onActivateClick }: { inv: Invitation; onActivateClick: () => void }) {
   const left = daysLeft(inv.event_date);
   const link = `${window.location.origin}/i/${inv.slug}`;
@@ -343,10 +486,12 @@ function Dashboard({
   profile,
   invitations,
   onActivateClick,
+  onCreateClick,
 }: {
   profile: Profile;
   invitations: Invitation[];
   onActivateClick: (inv: Invitation) => void;
+  onCreateClick: () => void;
 }) {
   return (
     <div className="mx-auto max-w-2xl px-4 py-16">
@@ -360,7 +505,7 @@ function Dashboard({
       <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2">
         <button
           type="button"
-          onClick={() => toast.info("Yangi taklifnoma yaratish oqimi tez orada qo'shiladi")}
+          onClick={onCreateClick}
           className="glass flex min-h-[200px] flex-col items-center justify-center gap-2 rounded-3xl border-2 border-dashed border-border text-muted-foreground"
         >
           <Plus className="h-8 w-8" />
@@ -386,6 +531,7 @@ function KabinetPage() {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [invitations, setInvitations] = useState<Invitation[]>([]);
   const [activeModal, setActiveModal] = useState<Invitation | null>(null);
+  const [showCreate, setShowCreate] = useState(false);
   const codeRef = useRef<string | null>(null);
   const pendingPollRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -453,7 +599,12 @@ function KabinetPage() {
 
   return (
     <>
-      <Dashboard profile={profile} invitations={invitations} onActivateClick={setActiveModal} />
+      <Dashboard
+        profile={profile}
+        invitations={invitations}
+        onActivateClick={setActiveModal}
+        onCreateClick={() => setShowCreate(true)}
+      />
       {activeModal && (
         <PaymentModal
           inv={activeModal}
@@ -461,6 +612,15 @@ function KabinetPage() {
           onClose={() => setActiveModal(null)}
           onSubmitted={() => {
             setActiveModal(null);
+            if (codeRef.current) loadDashboard(codeRef.current);
+          }}
+        />
+      )}
+      {showCreate && (
+        <CreateModal
+          profile={profile}
+          onClose={() => setShowCreate(false)}
+          onCreated={() => {
             if (codeRef.current) loadDashboard(codeRef.current);
           }}
         />

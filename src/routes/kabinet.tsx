@@ -25,7 +25,7 @@ export const Route = createFileRoute("/kabinet")({
 });
 
 const STORAGE_KEY = "webinvite_login_code";
-const OISHA_SITE_URL = "https://oisha-bash.vercel.app";
+const OISHA_SITE_URL = "https://birthday-oisha-bash.vercel.app";
 
 type Invitation = {
   id: string;
@@ -502,7 +502,6 @@ function Dashboard({
   invitations,
   code,
   onActivateClick,
-  onCreateClick,
   onDelete,
   onLogout,
 }: {
@@ -510,7 +509,6 @@ function Dashboard({
   invitations: Invitation[];
   code: string;
   onActivateClick: (inv: Invitation) => void;
-  onCreateClick: () => void;
   onDelete: (inv: Invitation) => void;
   onLogout: () => void;
 }) {
@@ -569,14 +567,13 @@ function Dashboard({
           </h1>
 
           <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2">
-            <button
-              type="button"
-              onClick={onCreateClick}
+            <a
+              href="/yaratish"
               className="flex min-h-[220px] flex-col items-center justify-center gap-2 rounded-3xl border-2 border-dashed border-amber-300 text-amber-600 transition hover:border-amber-500 hover:bg-amber-50"
             >
               <Plus className="h-8 w-8" />
               <span className="font-bold">Yangi yaratish</span>
-            </button>
+            </a>
 
             {invitations.map((inv) => (
               <InvitationCard
@@ -605,7 +602,6 @@ function KabinetPage() {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [invitations, setInvitations] = useState<Invitation[]>([]);
   const [activeModal, setActiveModal] = useState<Invitation | null>(null);
-  const [showCreate, setShowCreate] = useState(false);
   const codeRef = useRef<string | null>(null);
   const pendingPollRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -697,7 +693,6 @@ function KabinetPage() {
         invitations={invitations}
         code={codeRef.current ?? ""}
         onActivateClick={setActiveModal}
-        onCreateClick={() => setShowCreate(true)}
         onDelete={handleDelete}
         onLogout={handleLogout}
       />
@@ -708,15 +703,6 @@ function KabinetPage() {
           onClose={() => setActiveModal(null)}
           onSubmitted={() => {
             setActiveModal(null);
-            if (codeRef.current) loadDashboard(codeRef.current);
-          }}
-        />
-      )}
-      {showCreate && (
-        <CreateModal
-          profile={profile}
-          onClose={() => setShowCreate(false)}
-          onCreated={() => {
             if (codeRef.current) loadDashboard(codeRef.current);
           }}
         />

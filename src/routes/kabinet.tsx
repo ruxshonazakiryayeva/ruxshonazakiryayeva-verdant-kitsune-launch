@@ -568,11 +568,12 @@ function Dashboard({
 
           <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2">
             <a
-              href="/yaratish"
+              href="/#catalog"
               className="flex min-h-[220px] flex-col items-center justify-center gap-2 rounded-3xl border-2 border-dashed border-amber-300 text-amber-600 transition hover:border-amber-500 hover:bg-amber-50"
             >
               <Plus className="h-8 w-8" />
               <span className="font-bold">Yangi yaratish</span>
+              <span className="text-xs font-normal text-muted-foreground">Shablonlar katalogiga o'tish</span>
             </a>
 
             {invitations.map((inv) => (

@@ -417,7 +417,7 @@ const CATALOG: CatItem[] = [
     descKey: "cat.item8",
     href: "https://birthday-oisha-bash.vercel.app/",
     img: "https://api.microlink.io/?url=https://birthday-oisha-bash.vercel.app/&screenshot=true&meta=false&embed=screenshot.url",
-    editHref: "https://birthday-oisha-bash.vercel.app/edit",
+    editHref: "/yaratish",
   },
   {
     cat: "birthday",
@@ -827,14 +827,20 @@ function WebInvitePage() {
                         <a
                           className="cat-link"
                           href={c.editHref}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                          target={c.editHref.startsWith("/") ? undefined : "_blank"}
+                          rel={c.editHref.startsWith("/") ? undefined : "noopener noreferrer"}
                         >
-                          {lang === "uz"
-                            ? "Tahrirlash"
-                            : lang === "ru"
-                              ? "Редактировать"
-                              : "Edit"}{" "}
+                          {c.editHref.startsWith("/")
+                            ? lang === "uz"
+                              ? "Onlayn yaratish"
+                              : lang === "ru"
+                                ? "Создать онлайн"
+                                : "Create online"
+                            : lang === "uz"
+                              ? "Tahrirlash"
+                              : lang === "ru"
+                                ? "Редактировать"
+                                : "Edit"}{" "}
                           <svg
                             viewBox="0 0 24 24"
                             fill="none"

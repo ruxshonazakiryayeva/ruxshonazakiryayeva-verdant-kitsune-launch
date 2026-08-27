@@ -15,6 +15,8 @@ import {
   Gift,
   MessageSquareHeart,
   Users,
+  UserPlus,
+  X,
 } from "lucide-react";
 import { toast } from "sonner";
 import { callFn } from "@/lib/webinviteApi";
@@ -39,6 +41,7 @@ type Invitation = {
   views_count: number;
   views_limit: number;
   guests_count: number;
+  wishes_count: number;
   price_to_pay: number;
   final_paid_price: number | null;
   created_at: string;
@@ -367,6 +370,142 @@ function StatPill({ value, label }: { value: string | number; label: string }) {
   );
 }
 
+function WishesModal({ inv, code, onClose }: { inv: Invitation; code: string; onClose: () => void }) {
+  const [loading, setLoading] = useState(true);
+  const [wishes, setWishes] = useState<any[]>([]);
+
+  useEffect(() => {
+    callFn<{ ok: boolean; wishes: any[] }>("list-wishes", { code, invitationId: inv.id })
+      .then((res) => setWishes(res.wishes ?? []))
+      .catch((e) => console.error(e))
+      .finally(() => setLoading(false));
+  }, [inv.id, code]);
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 backdrop-blur-sm" onClick={onClose}>
+      <div className="w-full max-w-sm rounded-3xl border border-border bg-card p-6 shadow-xl" onClick={(e) => e.stopPropagation()}>
+        <div className="flex items-center justify-between">
+          <h2 className="text-xl font-bold text-foreground">Tilaklar ({wishes.length})</h2>
+          <button type="button" onClick={onClose}><X className="h-5 w-5 text-muted-foreground" /></button>
+        </div>
+
+        <div className="mt-4 max-h-80 space-y-2 overflow-y-auto">
+          {loading && <Loader2 className="mx-auto h-6 w-6 animate-spin text-amber-500" />}
+          {!loading && wishes.length === 0 && (
+            <p className="text-center text-sm text-muted-foreground">Hali tilak yo'q</p>
+          )}
+          {wishes.map((w) => (
+            <div key={w.id} className="rounded-xl bg-secondary/50 p-3">
+              <div className="flex items-center justify-between">
+                <p className="font-bold text-foreground">{w.guest_name}</p>
+                <span className={`text-xs font-bold ${w.attendance === "yes" ? "text-green-600" : "text-red-500"}`}>
+                  {w.attendance === "yes" ? "Keladi" : "Kelmaydi"}
+                </span>
+              </div>
+              {w.message && <p className="mt-1 text-sm text-muted-foreground">{w.message}</p>}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function GuestsModal({ inv, code, onClose }: { inv: Invitation; code: string; onClose: () => void }) {
+  const [loading, setLoading] = useState(true);
+  const [guests, setGuests] = useState<any[]>([]);
+  const [name, setName] = useState("");
+  const [adding, setAdding] = useState(false);
+
+  const load = () => {
+    setLoading(true);
+    callFn<{ ok: boolean; guests: any[] }>("manage-guest-links", { action: "list", code, invitationId: inv.id })
+      .then((res) => setGuests(res.guests ?? []))
+      .catch((e) => console.error(e))
+      .finally(() => setLoading(false));
+  };
+
+  useEffect(load, [inv.id, code]);
+
+  const addGuest = async () => {
+    if (!name.trim()) return;
+    setAdding(true);
+    try {
+      await callFn("manage-guest-links", { action: "add", code, invitationId: inv.id, name: name.trim() });
+      setName("");
+      load();
+    } catch (e) {
+      console.error(e);
+      toast.error("Xatolik yuz berdi");
+    } finally {
+      setAdding(false);
+    }
+  };
+
+  const removeGuest = async (id: string) => {
+    try {
+      await callFn("manage-guest-links", { action: "delete", code, invitationId: inv.id, guestLinkId: id });
+      setGuests((prev) => prev.filter((g) => g.id !== id));
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const copyLink = (link: string) => {
+    navigator.clipboard.writeText(link);
+    toast.success("Havola nusxalandi");
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 backdrop-blur-sm" onClick={onClose}>
+      <div className="w-full max-w-sm rounded-3xl border border-border bg-card p-6 shadow-xl" onClick={(e) => e.stopPropagation()}>
+        <div className="flex items-center justify-between">
+          <h2 className="text-xl font-bold text-foreground">Mehmonlar ro'yxati</h2>
+          <button type="button" onClick={onClose}><X className="h-5 w-5 text-muted-foreground" /></button>
+        </div>
+
+        <div className="mt-4 flex gap-2">
+          <input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && addGuest()}
+            placeholder="Mehmon ismi..."
+            className="flex-1 rounded-xl border border-border bg-background px-3 py-2 text-sm outline-none focus:border-amber-500"
+          />
+          <button
+            type="button"
+            onClick={addGuest}
+            disabled={adding}
+            className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-r from-amber-400 to-yellow-500 text-white"
+          >
+            {adding ? <Loader2 className="h-4 w-4 animate-spin" /> : <UserPlus className="h-4 w-4" />}
+          </button>
+        </div>
+
+        <div className="mt-4 max-h-72 space-y-2 overflow-y-auto">
+          {loading && <Loader2 className="mx-auto h-6 w-6 animate-spin text-amber-500" />}
+          {!loading && guests.length === 0 && (
+            <p className="text-center text-sm text-muted-foreground">Hali mehmon qo'shilmagan</p>
+          )}
+          {guests.map((g) => (
+            <div key={g.id} className="rounded-xl bg-secondary/50 p-3">
+              <p className="font-bold text-foreground">{g.name}</p>
+              <p className="mt-0.5 truncate text-xs text-amber-600">{g.link}</p>
+              <div className="mt-2 flex gap-2">
+                <button type="button" onClick={() => copyLink(g.link)} className="flex h-8 w-8 items-center justify-center rounded-lg bg-background"><Copy className="h-3.5 w-3.5" /></button>
+                <a href={`https://t.me/share/url?url=${encodeURIComponent(g.link)}`} target="_blank" rel="noopener noreferrer" className="flex h-8 w-8 items-center justify-center rounded-lg bg-background"><Send className="h-3.5 w-3.5" /></a>
+                <a href={`https://wa.me/?text=${encodeURIComponent(g.link)}`} target="_blank" rel="noopener noreferrer" className="flex h-8 w-8 items-center justify-center rounded-lg bg-background"><MessageCircle className="h-3.5 w-3.5" /></a>
+                <button type="button" onClick={() => removeGuest(g.id)} className="ml-auto flex h-8 w-8 items-center justify-center rounded-lg bg-red-50 text-red-500"><Trash2 className="h-3.5 w-3.5" /></button>
+              </div>
+            </div>
+          ))}
+        </div>
+        <p className="mt-3 text-center text-xs text-muted-foreground">Har bir mehmon uchun alohida havola yaratiladi</p>
+      </div>
+    </div>
+  );
+}
+
 function InvitationCard({
   inv,
   code,
@@ -381,6 +520,8 @@ function InvitationCard({
   const left = daysLeft(inv.event_date);
   const link = invitationLink(inv);
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [showWishes, setShowWishes] = useState(false);
+  const [showGuests, setShowGuests] = useState(false);
 
   const copyLink = () => {
     navigator.clipboard.writeText(link);
@@ -452,6 +593,15 @@ function InvitationCard({
       </div>
 
       <div className="mt-3 grid grid-cols-2 gap-2">
+        <button type="button" onClick={() => setShowWishes(true)} className="flex items-center justify-center gap-1 rounded-xl border border-border py-2 text-sm font-medium text-foreground hover:border-amber-400">
+          <MessageSquareHeart className="h-4 w-4" /> Tilaklar ({inv.wishes_count ?? 0})
+        </button>
+        <button type="button" onClick={() => setShowGuests(true)} className="flex items-center justify-center gap-1 rounded-xl border border-border py-2 text-sm font-medium text-foreground hover:border-amber-400">
+          <UserPlus className="h-4 w-4" /> Mehmonlar
+        </button>
+      </div>
+
+      <div className="mt-2 grid grid-cols-2 gap-2">
         <a href={link} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1 rounded-xl border border-border py-2 text-sm font-medium text-foreground hover:border-amber-400">
           <Eye className="h-4 w-4" /> Ko'rish
         </a>
@@ -459,6 +609,9 @@ function InvitationCard({
           <Pencil className="h-4 w-4" /> Tahrir
         </a>
       </div>
+
+      {showWishes && <WishesModal inv={inv} code={code} onClose={() => setShowWishes(false)} />}
+      {showGuests && <GuestsModal inv={inv} code={code} onClose={() => setShowGuests(false)} />}
 
       {inv.status === "trial" && (
         <button type="button" className="mt-3 w-full rounded-full bg-gradient-to-r from-amber-400 to-yellow-500 px-4 py-2.5 font-bold text-white shadow-md transition hover:opacity-90" onClick={onActivateClick}>

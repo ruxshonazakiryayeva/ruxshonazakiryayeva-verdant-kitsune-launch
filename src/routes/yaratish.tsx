@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
-import { Loader2, ArrowLeft } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { callFn } from "@/lib/webinviteApi";
 
 export const Route = createFileRoute("/yaratish")({
@@ -12,52 +12,34 @@ const STORAGE_KEY = "webinvite_login_code";
 
 function YaratishPage() {
   const navigate = useNavigate();
-  const [saving, setSaving] = useState(false);
-  const [result, setResult] = useState<string | null>(null);
-  const [form, setForm] = useState({ childName: "", age: "", eventDate: "", locationText: "", mapUrl: "" });
+  const [error, setError] = useState<string | null>(null);
 
-  const submit = async () => {
-    if (!form.childName || !form.age || !form.eventDate || !form.locationText) {
-      toast.error("Barcha majburiy maydonlarni to'ldiring");
-      return;
-    }
-    let code = localStorage.getItem(STORAGE_KEY);
+  useEffect(() => {
+    const code = localStorage.getItem(STORAGE_KEY);
     if (!code) {
       toast.error("Avval kabinetga Telegram orqali kiring");
       navigate({ to: "/kabinet" });
       return;
     }
-    setSaving(true);
-    try {
-      const res = await callFn<{ ok: boolean; url: string }>("create-oisha-invitation", {
-        code,
-        childName: form.childName,
-        age: Number(form.age),
-        eventDate: form.eventDate,
-        locationText: form.locationText,
-        mapUrl: form.mapUrl || undefined,
+    callFn<{ ok: boolean; editUrl: string }>("create-oisha-invitation", { code })
+      .then((res) => {
+        // To'g'ridan-to'g'ri haqiqiy Oisha muharririga (rasm, musiqa, dastur bilan) o'tkazamiz
+        window.location.href = res.editUrl;
+      })
+      .catch((e) => {
+        console.error(e);
+        setError("Xatolik yuz berdi, qayta urinib ko'ring");
       });
-      setResult(res.url);
-    } catch (e) {
-      console.error(e);
-      toast.error("Xatolik yuz berdi, qayta urinib ko'ring");
-    } finally {
-      setSaving(false);
-    }
-  };
+  }, [navigate]);
 
-  if (result) {
+  if (error) {
     return (
-      <div className="mx-auto max-w-md px-4 py-24 text-center">
-        <h1 className="text-3xl font-bold text-foreground">🎉 Tayyor!</h1>
-        <p className="mt-3 text-muted-foreground">Taklifnomangiz yaratildi:</p>
-        <a href={result} target="_blank" rel="noopener noreferrer" className="mt-4 block break-all rounded-2xl bg-secondary/50 p-4 text-amber-600 underline">
-          {result}
-        </a>
+      <div className="mx-auto flex min-h-screen max-w-md flex-col items-center justify-center px-4 text-center">
+        <p className="text-destructive">{error}</p>
         <button
           type="button"
           onClick={() => navigate({ to: "/kabinet" })}
-          className="mt-6 w-full rounded-full bg-gradient-to-r from-amber-400 to-yellow-500 px-6 py-3 font-bold text-white shadow-md hover:opacity-90"
+          className="mt-4 rounded-full bg-gradient-to-r from-amber-400 to-yellow-500 px-6 py-2.5 font-bold text-white"
         >
           Kabinetga qaytish
         </button>
@@ -66,40 +48,9 @@ function YaratishPage() {
   }
 
   return (
-    <div className="mx-auto max-w-md px-4 py-16">
-      <button type="button" onClick={() => navigate({ to: "/#catalog" })} className="mb-4 flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
-        <ArrowLeft className="h-4 w-4" /> Katalogga qaytish
-      </button>
-      <h1 className="text-2xl font-bold text-foreground">🎂 Oisha — ma'lumotlar</h1>
-      <p className="mt-1 text-sm text-amber-600">20 000 so'm</p>
-
-      <div className="mt-5 space-y-3">
-        <div>
-          <label className="text-xs font-bold uppercase text-muted-foreground">Bola ismi *</label>
-          <input className="mt-1 w-full rounded-xl border border-border bg-background px-3 py-2 text-sm outline-none focus:border-amber-500" value={form.childName} onChange={(e) => setForm({ ...form, childName: e.target.value })} placeholder="Oisha" />
-        </div>
-        <div>
-          <label className="text-xs font-bold uppercase text-muted-foreground">Yoshi *</label>
-          <input type="number" className="mt-1 w-full rounded-xl border border-border bg-background px-3 py-2 text-sm outline-none focus:border-amber-500" value={form.age} onChange={(e) => setForm({ ...form, age: e.target.value })} placeholder="4" />
-        </div>
-        <div>
-          <label className="text-xs font-bold uppercase text-muted-foreground">Sana va vaqt *</label>
-          <input type="datetime-local" className="mt-1 w-full rounded-xl border border-border bg-background px-3 py-2 text-sm outline-none focus:border-amber-500" value={form.eventDate} onChange={(e) => setForm({ ...form, eventDate: e.target.value })} />
-        </div>
-        <div>
-          <label className="text-xs font-bold uppercase text-muted-foreground">Manzil *</label>
-          <input className="mt-1 w-full rounded-xl border border-border bg-background px-3 py-2 text-sm outline-none focus:border-amber-500" value={form.locationText} onChange={(e) => setForm({ ...form, locationText: e.target.value })} placeholder="Toshkent, ... to'yxonasi" />
-        </div>
-        <div>
-          <label className="text-xs font-bold uppercase text-muted-foreground">Xarita havolasi (ixtiyoriy)</label>
-          <input className="mt-1 w-full rounded-xl border border-border bg-background px-3 py-2 text-sm outline-none focus:border-amber-500" value={form.mapUrl} onChange={(e) => setForm({ ...form, mapUrl: e.target.value })} placeholder="https://maps.google.com/..." />
-        </div>
-      </div>
-
-      <button type="button" onClick={submit} disabled={saving} className="mt-6 w-full rounded-full bg-gradient-to-r from-amber-400 to-yellow-500 px-6 py-3 font-bold text-white shadow-md hover:opacity-90">
-        {saving ? <Loader2 className="mx-auto h-4 w-4 animate-spin" /> : "Taklifnoma yaratish"}
-      </button>
+    <div className="flex min-h-screen flex-col items-center justify-center gap-3">
+      <Loader2 className="h-8 w-8 animate-spin text-amber-500" />
+      <p className="text-muted-foreground">Taklifnoma yaratilmoqda...</p>
     </div>
   );
 }
-

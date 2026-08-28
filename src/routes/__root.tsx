@@ -16,18 +16,29 @@ function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-100 px-3 py-1 text-xs font-bold text-amber-700">
+          ✨ XATOLIK 404
+        </span>
+        <h1 className="mt-6 bg-gradient-to-r from-amber-500 to-yellow-600 bg-clip-text text-8xl font-black text-transparent">
+          404
+        </h1>
+        <h2 className="mt-4 text-2xl font-bold text-foreground">Manzilni yo'qotdingizmi?</h2>
+        <p className="mt-3 text-sm text-muted-foreground">
+          Afsuski, siz qidirayotgan sahifa topilmadi yoki mavjud emas.
         </p>
-        <div className="mt-6">
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Link
             to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-amber-400 to-yellow-500 px-6 py-2.5 text-sm font-bold text-white shadow-md transition hover:opacity-90"
           >
-            Go home
+            🏠 Bosh sahifa
           </Link>
+          <a
+            href="/#catalog"
+            className="inline-flex items-center justify-center gap-2 rounded-full border border-border px-6 py-2.5 text-sm font-bold text-foreground transition hover:border-amber-400"
+          >
+            📋 Shablonlar
+          </a>
         </div>
       </div>
     </div>

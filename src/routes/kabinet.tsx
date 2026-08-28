@@ -614,8 +614,16 @@ function InvitationCard({
       {showGuests && <GuestsModal inv={inv} code={code} onClose={() => setShowGuests(false)} />}
 
       {inv.status === "trial" && (
-        <button type="button" className="mt-3 w-full rounded-full bg-gradient-to-r from-amber-400 to-yellow-500 px-4 py-2.5 font-bold text-white shadow-md transition hover:opacity-90" onClick={onActivateClick}>
-          Faollashtirish
+        <button
+          type="button"
+          className={`mt-3 w-full rounded-full px-4 py-2.5 font-bold text-white shadow-md transition hover:opacity-90 ${
+            inv.views_count >= inv.views_limit
+              ? "bg-gradient-to-r from-red-500 to-rose-600 animate-pulse"
+              : "bg-gradient-to-r from-amber-400 to-yellow-500"
+          }`}
+          onClick={onActivateClick}
+        >
+          {inv.views_count >= inv.views_limit ? "⚠️ Bepul ko'rishlar tugadi — Faollashtirish" : "Faollashtirish"}
         </button>
       )}
       {inv.status === "pending" && (

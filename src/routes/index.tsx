@@ -42,11 +42,14 @@ const translations: Record<Lang, Record<string, string>> = {
     "cat.item7": "Yorqin ranglar, foto-galereya va sokin animatsiyalar bilan bezatilgan taklifnoma.",
     "cat.item8": "Yorqin ranglar, foto-galereya va sokin animatsiyalar bilan bezatilgan qizlar uchun tug'ilgan kun taklifnomasi.",
     "cat.item9": "O'g'il bolalar uchun ko'k-oltin rangda raketa va sarguzasht mavzusidagi taklifnoma, sanoq taymeri va musiqa bilan.",
+    "cat.item10": "Mustaqillik bayramiga bag'ishlangan tabriknoma — bayroq, gimn musiqasi va foto-galereya bilan milliy ruhda.",
+    "cat.item11": "1-oktyabr — o'qituvchi va murabbiylar kuniga bag'ishlangan, hikoya tarzida asta-sekin ochiladigan, sovg'a qutisi animatsiyali tabriknoma.",
     "cat.more": "Barcha dizaynlarni so'rash",
     "filter.all": "Barchasi",
     "filter.wedding": "To'y",
     "filter.party": "Bazm",
     "filter.birthday": "Tug'ilgan kun",
+    "filter.greeting": "Tabriknoma",
     "filter.other": "Boshqa",
     "dev.eyebrow": "Moslashuvchan dizayn",
     "dev.title": "Kompyuter, planshet va telefonda — bir xil chiroyli",
@@ -150,11 +153,14 @@ const translations: Record<Lang, Record<string, string>> = {
     "cat.item7": "Яркие цвета, фотогалерея и плавные анимации.",
     "cat.item8": "Приглашение на день рождения для девочек с яркими красками, фотогалереей и плавными анимациями.",
     "cat.item9": "Приглашение для мальчиков в сине-золотых тонах с темой ракеты и приключений, таймером и музыкой.",
+    "cat.item10": "Открытка ко Дню независимости — с флагом, гимном и фотогалереей в национальном стиле.",
+    "cat.item11": "Открытка ко Дню учителя (1 октября), раскрывающаяся как история, с анимацией подарочной коробки.",
     "cat.more": "Запросить все дизайны",
     "filter.all": "Все",
     "filter.wedding": "Свадьба",
     "filter.party": "Вечеринка",
     "filter.birthday": "День рождения",
+    "filter.greeting": "Поздравление",
     "filter.other": "Другое",
     "dev.eyebrow": "Адаптивный дизайн",
     "dev.title": "Компьютер, планшет и телефон — одинаково красиво",
@@ -256,11 +262,14 @@ const translations: Record<Lang, Record<string, string>> = {
     "cat.item7": "Bright colors, a photo gallery and smooth, gentle animations.",
     "cat.item8": "A birthday invitation for girls with bright colors, a photo gallery and smooth animations.",
     "cat.item9": "A blue-gold rocket and adventure themed invitation for boys, with countdown and music.",
+    "cat.item10": "An Independence Day greeting card with the national flag, anthem music, and a photo gallery.",
+    "cat.item11": "A Teachers' Day (October 1) greeting card that unfolds like a story, with a gift-box animation.",
     "cat.more": "Request all designs",
     "filter.all": "All",
     "filter.wedding": "Wedding",
     "filter.party": "Party",
     "filter.birthday": "Birthday",
+    "filter.greeting": "Greeting card",
     "filter.other": "Other",
     "dev.eyebrow": "Responsive design",
     "dev.title": "Desktop, tablet, and phone — equally beautiful",
@@ -344,7 +353,7 @@ type Submission = {
 };
 
 type CatItem = {
-  cat: "wedding" | "party" | "birthday" | "other";
+  cat: "wedding" | "party" | "birthday" | "other" | "greeting";
   tagKey: string;
   title: string;
   descKey: string;
@@ -428,6 +437,22 @@ const CATALOG: CatItem[] = [
     img: "https://api.microlink.io/?url=https://imronbek-birthday-invent.vercel.app/&screenshot=true&meta=false&embed=screenshot.url",
     editHref: "https://imronbek-birthday-invent.vercel.app/edit",
   },
+  {
+    cat: "greeting",
+    tagKey: "filter.greeting",
+    title: "Mustaqillik bayrami (35-yillik)",
+    descKey: "cat.item10",
+    href: "https://mustaqillik-35.vercel.app/",
+    img: "https://api.microlink.io/?url=https://mustaqillik-35.vercel.app/&screenshot=true&meta=false&embed=screenshot.url",
+  },
+  {
+    cat: "greeting",
+    tagKey: "filter.greeting",
+    title: "Ustozlar bayrami",
+    descKey: "cat.item11",
+    href: "https://maestro-tales.vercel.app/",
+    img: "https://api.microlink.io/?url=https://maestro-tales.vercel.app/&screenshot=true&meta=false&embed=screenshot.url",
+  },
 ];
 
 function renderHtml(html: string) {
@@ -438,9 +463,9 @@ function WebInvitePage() {
   const [lang, setLang] = useState<Lang>("uz");
   const [theme, setTheme] = useState<Theme>("light");
   const [envelopeOpen, setEnvelopeOpen] = useState(false);
-  const [filter, setFilter] = useState<"all" | "wedding" | "party" | "birthday" | "other">(
-    "all",
-  );
+  const [filter, setFilter] = useState<
+    "all" | "wedding" | "party" | "birthday" | "other" | "greeting"
+  >("all");
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [audioOn, setAudioOn] = useState(false);
   const [audioMissing, setAudioMissing] = useState(false);
@@ -772,7 +797,7 @@ function WebInvitePage() {
               <h2>{t("cat.title")}</h2>
             </div>
             <div className="filters reveal">
-              {(["all", "wedding", "party", "birthday", "other"] as const).map((f) => (
+              {(["all", "wedding", "party", "birthday", "greeting", "other"] as const).map((f) => (
                 <button
                   key={f}
                   className={"filter-btn" + (filter === f ? " active" : "")}

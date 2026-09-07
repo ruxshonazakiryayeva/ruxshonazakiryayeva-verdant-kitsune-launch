@@ -451,7 +451,7 @@ const CATALOG: CatItem[] = [
     title: "Ustozlar bayrami",
     descKey: "cat.item11",
     href: "https://maestro-tales.vercel.app/",
-    img: "https://api.microlink.io/?url=https://maestro-tales.vercel.app/&screenshot=true&meta=false&embed=screenshot.url",
+    img: "https://raw.githubusercontent.com/ruxshonazakiryayeva/maestro-tales/main/src/assets/cover.jpg",
   },
 ];
 
